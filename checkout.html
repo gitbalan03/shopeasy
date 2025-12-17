@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShopEase - Checkout</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html" class="active">Checkout</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <header class="hero-section">
+        <h1>ShopEase</h1>
+        <p>Secure Checkout 💳</p>
+    </header>
+
+    <!-- Checkout Form -->
+    <main class="checkout-page">
+        <h2>Complete Your Purchase</h2>
+
+        <form id="checkoutForm">
+            <label>
+                Full Name
+                <input type="text" name="fullname" placeholder="John Doe" required />
+            </label>
+            <label>
+                Email
+                <input type="email" name="email" placeholder="example@email.com" required />
+            </label>
+            <label>
+                Address
+                <textarea name="address" required></textarea>
+            </label>
+            <label>
+                Payment Method
+                <select name="payment" required>
+                    <option value="">-- Select Payment --</option>
+                    <option value="razorpay">💳 Razorpay (Card/UPI/Wallet)</option>
+                    <option value="cod">🚚 Cash on Delivery</option>
+                </select>
+            </label>
+            <button type="submit" class="btn btn-primary">Place Order ✅</button>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById("checkoutForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+
+            const fullname = e.target.fullname.value;
+            const email = e.target.email.value;
+            const address = e.target.address.value;
+            const payment = e.target.payment.value;
+
+            // Get cart from localStorage
+            const cart = JSON.parse(localStorage.getItem("cart")) || [];
+            if (cart.length === 0) {
+                alert("🛒 Your cart is empty!");
+                return;
+            }
+
+            // Map cart to server schema: items
+            const items = cart.map(item => ({
+                name: item.name,
+                quantity: item.quantity,
+                price: item.price,
+                image: item.image || ""
+            }));
+
+            const totalAmount = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            // Build order object matching server schema
+            const order = {
+                name: fullname,
+                email,
+                address,
+                payment,
+                items,
+                total: totalAmount
+            };
+
+            if (payment === "razorpay") {
+                try {
+                    // 1. Create Razorpay order on backend (make sure you have this route)
+                    const res = await fetch("http://localhost:5000/create-order", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ amount: totalAmount })
+                    });
+                    const orderData = await res.json();
+
+                    // 2. Open Razorpay checkout
+                    const options = {
+                        key: "YOUR_RAZORPAY_KEY_ID", // replace with your Razorpay test key
+                        amount: orderData.amount,
+                        currency: orderData.currency,
+                        name: "ShopEase",
+                        description: "Purchase from ShopEase",
+                        order_id: orderData.id,
+                        handler: async function (response) {
+                            // Payment success → save order to backend
+                            order.razorpay = response;
+
+                            const saveRes = await fetch("http://localhost:5000/api/orders", {
+                                method: "POST",
+                                headers: { "Content-Type": "application/json" },
+                                body: JSON.stringify(order)
+                            });
+
+                            const saveData = await saveRes.json();
+                            if (saveData.success) {
+                                localStorage.setItem("order", JSON.stringify(saveData.order));
+                                localStorage.removeItem("cart");
+                                alert("🎉 Payment Successful! Order saved.");
+                                window.location.href = "order-success.html";
+                            } else {
+                                alert("❌ Failed to save order: " + saveData.message);
+                            }
+                        },
+                        prefill: { name: fullname, email },
+                        theme: { color: "#3399cc" }
+                    };
+
+                    const rzp = new Razorpay(options);
+                    rzp.open();
+
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Payment failed. Try again.");
+                }
+            } else if (payment === "cod") {
+                // Cash on Delivery → save order directly
+                try {
+                    const saveRes = await fetch("http://localhost:5000/api/orders", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify(order)
+                    });
+                    const saveData = await saveRes.json();
+                    if (saveData.success) {
+                        localStorage.setItem("order", JSON.stringify(saveData.order));
+                        localStorage.removeItem("cart");
+                        alert("✅ Order placed with Cash on Delivery!");
+                        window.location.href = "order-success.html";
+                    } else {
+                        alert("❌ Failed to save order: " + saveData.message);
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("❌ Failed to save order. Try again.");
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
