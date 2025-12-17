@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShopEase - Cart</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html">Products</a>
+        <a href="cart.html" class="active">Cart</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section fade-in">
+        <h1 class="brand-name">ShopEase</h1>
+        <p class="tagline">Your Shopping Cart 🛒</p>
+    </header>
+
+    <!-- Main Cart Section -->
+    <main class="cart-page slide-up">
+        <section id="cart-container" class="bounce-in">
+            <!-- Cart items will be dynamically loaded from cart.js -->
+        </section>
+
+        <!-- Cart Summary -->
+        <section class="cart-summary fade-in">
+            <p><strong>Subtotal:</strong> ₹<span id="cart-subtotal">0</span></p>
+            <p><strong>Discount (10%):</strong> -₹<span id="cart-discount">0</span></p>
+            <p><strong>Final Total:</strong> ₹<span id="cart-total">0</span></p>
+
+            <div class="cart-actions">
+                <a href="products.html" class="btn">⬅ Continue Shopping</a>
+                <button class="btn btn-success" onclick="placeOrder()">🛍 Place Order</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 <span class="brand-footer">ShopEase</span>. All rights reserved.</p>
+    </footer>
+
+    <script src="cart.js"></script>
+</body>
+
+</html>

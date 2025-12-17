@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShopEase - Home</title>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+    <!-- Navbar -->
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <a href="index.html">🛒 ShopEase</a>
+        </div>
+
+
+        <div class="nav-links">
+            <a href="index.html" class="active">Home</a>
+            <a href="products.html">Products</a>
+            <a href="cart.html">Cart</a>
+            <a href="checkout.html">Checkout</a>
+            <a href="about.html">About</a>
+        </div>
+    </nav>
+
+
+    <!-- Hero Section -->
+    <header class="hero">
+        <h1>Welcome to <span>ShopEase</span></h1>
+        <p>Your one-stop shop for amazing deals and empowering entrepreneurs!</p>
+        <a href="products.html" class="cta-btn">🛍️ Start Shopping</a>
+    </header>
+
+    <!-- Auth Buttons -->
+    <div class="auth-buttons">
+        <button onclick="toggleForm('loginForm')">Login</button>
+        <button onclick="toggleForm('signupForm')">Sign Up</button>
+    </div>
+
+
+    <!-- Login Form -->
+    <div id="loginForm" class="auth-form" style="display:none;">
+        <h2>Login</h2>
+        <label>Email</label>
+        <input id="loginEmail" type="email" placeholder="Enter your email" required>
+        <label>Password</label>
+        <input id="loginPassword" type="password" placeholder="Enter your password" required>
+        <button type="button" onclick="loginUser()">Login</button>
+    </div>
+
+    <!-- Signup Form -->
+    <div id="signupForm" class="auth-form" style="display:none;">
+        <h2>Sign Up</h2>
+        <label>Full Name</label>
+        <input id="signupName" type="text" placeholder="Enter your name" required>
+        <label>Email</label>
+        <input id="signupEmail" type="email" placeholder="Enter your email" required>
+        <label>Password</label>
+        <input id="signupPassword" type="password" placeholder="Create password" required>
+        <button type="button" onclick="signupUser()">Sign Up</button>
+    </div>
+
+    <script>
+        function toggleForm(formId) {
+            let forms = document.querySelectorAll('.auth-form');
+            forms.forEach(f => f.style.display = 'none');
+            document.getElementById(formId).style.display = 'block';
+        }
+
+        // Save signup data in localStorage
+        function signupUser() {
+            let name = document.getElementById("signupName").value;
+            let email = document.getElementById("signupEmail").value;
+            let password = document.getElementById("signupPassword").value;
+
+            if (email && password) {
+                let user = { name, email, password };
+                localStorage.setItem("user", JSON.stringify(user));
+                alert("Signup successful! Please login now.");
+                toggleForm('loginForm');
+            } else {
+                alert("Please fill all fields");
+            }
+        }
+
+        // Login user
+        function loginUser() {
+            let email = document.getElementById("loginEmail").value;
+            let password = document.getElementById("loginPassword").value;
+
+            let storedUser = JSON.parse(localStorage.getItem("user"));
+
+            if (storedUser && storedUser.email === email && storedUser.password === password) {
+                alert("Welcome back, " + storedUser.name + "!");
+                window.location.href = "products.html";
+            } else {
+                alert("Invalid email or password");
+            }
+        }
+    </script>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 ShopEase. All rights reserved.</p>
+    </footer>
+
+
+</body>
+
+</html>

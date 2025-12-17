@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>ShopEase - Products</title>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="products.html" class="active">Products</a>
+        <a href="cart.html">Cart</a>
+        <a href="checkout.html">Checkout</a>
+        <a href="about.html">About</a>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero-section fade-in">
+        <h1 class="brand-name">ShopEase</h1>
+        <p class="tagline">Discover products you’ll love ✨</p>
+    </header>
+
+    <!-- Main Products Section -->
+    <main class="products-main slide-up">
+        <!-- Filters -->
+        <section class="filters">
+            <input type="text" id="productSearch" placeholder="🔍 Search products..." oninput="filterProducts()" />
+            <select id="categoryFilter" onchange="filterProducts()">
+                <option value="all">All Categories</option>
+                <option value="electronics">Electronics</option>
+                <option value="fashion">Fashion</option>
+                <option value="home">Home</option>
+                <option value="fitness">Fitness</option>
+            </select>
+            <select id="sortPrice" onchange="filterProducts()">
+                <option value="default">Sort by Price</option>
+                <option value="low">Low to High</option>
+                <option value="high">High to Low</option>
+            </select>
+        </section>
+
+        <!-- Products Grid -->
+        <section class="products-grid" id="productList">
+
+            <!-- Electronics -->
+            <div class="product-card">
+                <img src="images/earpot.webp" alt="Wireless Earbuds" />
+                <h3>Wireless Earbuds</h3>
+                <p><strong>Price:</strong> ₹1299</p>
+                <p><strong>Rating:</strong> ★★★★⯪☆ (4.5)</p>
+                <p><strong>Category:</strong> Electronics</p>
+                <button onclick="addToCart(1)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Bluetooth Speaker.webp" alt="Bluetooth Speaker" />
+                <h3>Bluetooth Speaker</h3>
+                <p><strong>Price:</strong> ₹999</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.2)</p>
+                <p><strong>Category:</strong> Electronics</p>
+                <button onclick="addToCart(2)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/watch.webp" alt="Smart Watch" />
+                <h3>Smart Watch</h3>
+                <p><strong>Price:</strong> ₹3499</p>
+                <p><strong>Rating:</strong> ★★★★⯪☆ (4.6)</p>
+                <p><strong>Category:</strong> Electronics</p>
+                <button onclick="addToCart(3)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Gaming Headset.jpg" alt="Gaming Headset" />
+                <h3>Gaming Headset</h3>
+                <p><strong>Price:</strong> ₹1899</p>
+                <p><strong>Rating:</strong> ★★★★⯪☆ (4.5)</p>
+                <p><strong>Category:</strong> Electronics</p>
+                <button onclick="addToCart(4)">Add to Cart</button>
+            </div>
+
+            <!-- Fashion -->
+            <div class="product-card">
+                <img src="images/Men's Casual Shirt.jpg" alt="Men's Casual Shirt" />
+                <h3>Men's Casual Shirt</h3>
+                <p><strong>Price:</strong> ₹799</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.0)</p>
+                <p><strong>Category:</strong> Fashion</p>
+                <button onclick="addToCart(13)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Women Handbag.webp" alt="Women Handbag" />
+                <h3>Women Handbag</h3>
+                <p><strong>Price:</strong> ₹1599</p>
+                <p><strong>Rating:</strong> ★★★★⯪☆ (4.7)</p>
+                <p><strong>Category:</strong> Fashion</p>
+                <button onclick="addToCart(14)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/sneakers.webp" alt="Sneakers" />
+                <h3>Sneakers</h3>
+                <p><strong>Price:</strong> ₹2499</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.4)</p>
+                <p><strong>Category:</strong> Fashion</p>
+                <button onclick="addToCart(15)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Backpack.jpeg" alt="Backpack" />
+                <h3>Backpack</h3>
+                <p><strong>Price:</strong> ₹999</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.3)</p>
+                <p><strong>Category:</strong> Fashion</p>
+                <button onclick="addToCart(16)">Add to Cart</button>
+            </div>
+
+            <!-- Home -->
+            <div class="product-card">
+                <img src="images/coffee-maker.webp" alt="Coffee Maker" />
+                <h3>Coffee Maker</h3>
+                <p><strong>Price:</strong> ₹2999</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.3)</p>
+                <p><strong>Category:</strong> Home</p>
+                <button onclick="addToCart(22)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/chair.jpg" alt="Office Chair" />
+                <h3>Office Chair</h3>
+                <p><strong>Price:</strong> ₹4999</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.1)</p>
+                <p><strong>Category:</strong> Home</p>
+                <button onclick="addToCart(23)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Desk Lamp.webp" alt="Desk Lamp" />
+                <h3>Desk Lamp</h3>
+                <p><strong>Price:</strong> ₹499</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.4)</p>
+                <p><strong>Category:</strong> Home</p>
+                <button onclick="addToCart(24)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Electric Kettle.webp" alt="Electric Kettle" />
+                <h3>Electric Kettle</h3>
+                <p><strong>Price:</strong> ₹1299</p>
+                <p><strong>Rating:</strong> ★★★★⯪☆ (4.5)</p>
+                <p><strong>Category:</strong> Home</p>
+                <button onclick="addToCart(25)">Add to Cart</button>
+            </div>
+
+            <!-- Fitness -->
+            <div class="product-card">
+                <img src="images/yogoga matas.webp" alt="Yoga Mat" />
+                <h3>Yoga Mat</h3>
+                <p><strong>Price:</strong> ₹699</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.4)</p>
+                <p><strong>Category:</strong> Fitness</p>
+                <button onclick="addToCart(33)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Fitness Tracker.jpg" alt="Fitness Tracker" />
+                <h3>Fitness Tracker</h3>
+                <p><strong>Price:</strong> ₹2299</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.4)</p>
+                <p><strong>Category:</strong> Fitness</p>
+                <button onclick="addToCart(34)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Sports Bottle.webp" alt="Sports Bottle" />
+                <h3>Sports Bottle</h3>
+                <p><strong>Price:</strong> ₹499</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.2)</p>
+                <p><strong>Category:</strong> Fitness</p>
+                <button onclick="addToCart(35)">Add to Cart</button>
+            </div>
+
+            <div class="product-card">
+                <img src="images/Yoga Dress.jpeg" alt="Yoga Dress" />
+                <h3>Yoga Dress</h3>
+                <p><strong>Price:</strong> ₹699</p>
+                <p><strong>Rating:</strong> ★★★★☆ (4.4)</p>
+                <p><strong>Category:</strong> Fitness</p>
+                <button onclick="addToCart(36)">Add to Cart</button>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 <span class="brand-footer">ShopEase</span>. All rights reserved.</p>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" onclick="scrollToTop()">⬆</button>
+
+    <!-- Main JS for addToCart -->
+    <script src="main.js"></script>
+</body>
+
+</html>
